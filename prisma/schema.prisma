@@ -12,11 +12,18 @@ datasource db {
   provider = "postgresql"
 }
 
+model Session {
+  id          String   @id
+  sid         String   @unique
+  data        String
+  expiresAt   DateTime
+}
+
 model User { 
   id        Int     @id @default(autoincrement()) 
   username  String  @unique
   password  String
-  files File[]
+  files     File[]
 } 
 
 model File { 
