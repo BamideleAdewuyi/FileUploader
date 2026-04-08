@@ -9,6 +9,18 @@
     <div class="homePageContainer">
         <% if (user) {%>
             <h1>Welcome back <%= user.username %></h1>
+            <div class="folders">
+                <% if (folders) {%> 
+                    <% for (const folder of folders) {%>
+                        <ul>
+                            <li><a href="/<%= folder.title %>"><%= folder.title %></a></li>
+                        </ul>
+                    <% } %>
+                <% } else {%>
+                    <h2>No folders</h2>
+                    <% } %>
+            </div>
+            <a href="/createFolder">Create folder</a>
             <a href="/logOut">Log Out</a>
         <% } else { %>
             <a href="/signUp">Sign Up New User</a>
