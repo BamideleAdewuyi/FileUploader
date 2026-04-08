@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const fileUploaderController = require("../controllers/fileUploaderController");
 const fileUploaderRouter = Router();
-// const passport = require("../passport/passport").passport;
+const passport = require("../passport/passport").passport;
 
 // Get
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
@@ -10,5 +10,12 @@ fileUploaderRouter.get("/signUp", fileUploaderController.signUpGet);
 
 // Post
 fileUploaderRouter.post("/signUp", fileUploaderController.newUserPost);
+fileUploaderRouter.post(
+    "/logIn",
+    passport.authenticate("user-local", {
+        successRedirect: "/",
+        failureRedirect: "/"
+    })
+);
 
 module.exports = fileUploaderRouter;
