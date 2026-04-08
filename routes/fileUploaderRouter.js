@@ -7,6 +7,7 @@ const passport = require("../passport/passport").passport;
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
 fileUploaderRouter.get("/logIn", fileUploaderController.logInGet);
 fileUploaderRouter.get("/signUp", fileUploaderController.signUpGet);
+fileUploaderRouter.get("/logOut", fileUploaderController.logOutGet);
 
 // Post
 fileUploaderRouter.post("/signUp", fileUploaderController.newUserPost);
