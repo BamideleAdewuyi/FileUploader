@@ -19,6 +19,10 @@ function logInGet(req, res) {
   res.render("logIn")
 }
 
+function signUpGet(req, res) {
+  res.render("signUp");
+}
+
 const newUserPost = [
   validateUser,
   asyncHandler(async (req, res) => {
@@ -40,5 +44,6 @@ const newUserPost = [
 module.exports = {
     homeGet,
     logInGet,
+    signUpGet,
     newUserPost,
 }
