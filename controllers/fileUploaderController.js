@@ -19,6 +19,15 @@ function logInGet(req, res) {
   res.render("logIn")
 }
 
+function logOutGet(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  })
+}
+
 function signUpGet(req, res) {
   res.render("signUp");
 }
@@ -45,5 +54,6 @@ module.exports = {
     homeGet,
     logInGet,
     signUpGet,
+    logOutGet,
     newUserPost,
 }
