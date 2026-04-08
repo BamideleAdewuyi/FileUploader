@@ -9,6 +9,7 @@
     <div class="signUpContainer">
         <a href="/">Back to homepage</a>
         <h1>Sign Up here to upload files</h1>
+        <%- include("partials/errors.ejs") %>
         <form action="/signUp" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username">
