@@ -6,5 +6,6 @@ const fileUploaderRouter = Router();
 // Get
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
 fileUploaderRouter.get("/logIn", fileUploaderController.logInGet);
+fileUploaderRouter.get("/signUp", fileUploaderController.signUpGet);
 
 module.exports = fileUploaderRouter;
