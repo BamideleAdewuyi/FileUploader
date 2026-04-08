@@ -1,4 +1,4 @@
-// need db somehow
+const db = require("../db/queries");
 const { validationResult, matchedData } = require("express-validator");
 const validateUser = require("../validators/userValidator");
 const bcrypt = require("bcryptjs");
