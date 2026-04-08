@@ -15,6 +15,30 @@ async function homeGet(req, res) {
     });
 }
 
+function logInGet(req, res) {
+  res.render("logIn")
+}
+
+const newUserPost = [
+  validateUser,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("signUp", {
+        errors: errors.array()
+      })
+    }
+    
+    const { username, password } = matchedData(req);
+    const hashedPassword = await bcrypt.hash(password, 10);
+    
+    await db.createNewUser({ username, password: hashedPassword });
+    res.redirect("/logIn");
+  })
+]
+
 module.exports = {
-    homeGet
+    homeGet,
+    logInGet,
+    newUserPost,
 }
