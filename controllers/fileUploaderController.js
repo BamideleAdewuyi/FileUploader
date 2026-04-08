@@ -12,6 +12,7 @@ function asyncHandler(fn) {
 async function homeGet(req, res) {
     res.render("index", {
       user: req.user,
+      folders: req.folders
     });
 }
 
