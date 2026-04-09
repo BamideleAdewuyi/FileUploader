@@ -11,6 +11,7 @@ fileUploaderRouter.get("/logOut", fileUploaderController.logOutGet);
 
 // Post
 fileUploaderRouter.post("/signUp", fileUploaderController.newUserPost);
+fileUploaderRouter.post("/createFolder", fileUploaderController.newFolderPost);
 fileUploaderRouter.post(
     "/logIn",
     passport.authenticate("user-local", {
