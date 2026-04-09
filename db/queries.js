@@ -10,6 +10,15 @@ async function createNewUser({ username, password }) {
     return user;
 }
 
+async function createNewFolder({ userId, title }) {
+    const folder = await prisma.folder.create({
+        data: {
+            title: title,
+            authorId: userId
+        }
+    })
+}
+
 async function findUserByUsername({ username }) {
     const user = await prisma.user.findUnique({
         where: { username: username },
@@ -28,4 +37,5 @@ module.exports = {
     createNewUser,
     findUserByUsername,
     findUserById,
+    createNewFolder,
 }
