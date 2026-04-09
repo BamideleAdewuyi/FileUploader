@@ -17,6 +17,7 @@ async function createNewFolder({ userId, title }) {
             authorId: userId
         }
     })
+    return folder;
 }
 
 async function findUserByUsername({ username }) {
