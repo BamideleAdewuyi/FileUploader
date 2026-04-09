@@ -20,7 +20,16 @@
                     <h2>No folders</h2>
                     <% } %>
             </div>
-            <button type="button" onclick="">Create Folder</button>
+            <button type="button" onclick="document.getElementById('folderDialog').showModal()">Create Folder</button>
+            <dialog id="folderDialog">
+                <h3>Create a new folder</h4>
+                <form action="/createFolder" method="POST">
+                    <label for="title">Folder name</label>
+                    <input type="text" name="title" id="title">
+                    <button type="submit" onclick="document.getElementById('folderDialog').close()">Create</button>
+                    <button type="button" onclick="document.getElementById('folderDialog').close()">Close</button>
+                </form>
+            </dialog>
             <a href="/logOut">Log Out</a>
         <% } else { %>
             <a href="/signUp">Sign Up New User</a>
