@@ -1,7 +1,6 @@
 const { body, validationResult, matchedData } = require("express-validator");
 const db = require("../db/queries");
 
-const alphaErr = "must only contain letters and spaces";
 const lengthErr = "cannot be blank";
 const usernameErr = "can only contain letters and numbers";
 const passwordErr = "must be 3 characters";
