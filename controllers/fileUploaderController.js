@@ -52,10 +52,30 @@ const newUserPost = [
   })
 ]
 
+const newFolderPost = [
+  validateFolder,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("index", {
+        user: req.user,
+        folders: req.folders,
+        errors: errors.array()
+      })
+    }
+
+    const { title } = matchedData(req);
+    const userId = req.user.id;
+    await db.createNewFolder({ userId, title });
+    res.redirect("/");
+  })
+]
+
 module.exports = {
     homeGet,
     logInGet,
     signUpGet,
     logOutGet,
     newUserPost,
+    newFolderPost
 }
