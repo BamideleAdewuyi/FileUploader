@@ -1,6 +1,7 @@
 const db = require("../db/queries");
 const { validationResult, matchedData } = require("express-validator");
 const validateUser = require("../validators/userValidator");
+const validateFolder = require("../validators/folderValidator");
 const bcrypt = require("bcryptjs");
 
 function asyncHandler(fn) {
