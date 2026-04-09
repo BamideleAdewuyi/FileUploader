@@ -28,9 +28,16 @@ async function findUserByUsername({ username }) {
 
 async function findUserById({ id }) {
     const user = await prisma.user.findUnique({
-        where: {id: id},
+        where: { id: id },
     });
     return user;
+}
+
+async function findFolderByTitle({ title }) {
+    const folder = await prisma.folder.findUnique({
+        where: { title: title }
+    });
+    return folder;
 }
 
 module.exports = {
@@ -38,4 +45,5 @@ module.exports = {
     findUserByUsername,
     findUserById,
     createNewFolder,
+    findFolderByTitle,
 }
