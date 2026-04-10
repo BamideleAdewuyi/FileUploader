@@ -48,6 +48,13 @@ async function findAllUserFolders({ userId }) {
     return folders;
 }
 
+async function findAllFolderFiles({ folderId }) {
+    const files = await prisma.file.findMany({
+        where: { folderId: folderId }
+    });
+    return files;
+}
+
 module.exports = {
     createNewUser,
     findUserByUsername,
@@ -55,4 +62,5 @@ module.exports = {
     createNewFolder,
     findFolderByTitle,
     findAllUserFolders,
+    findAllFolderFiles
 }
