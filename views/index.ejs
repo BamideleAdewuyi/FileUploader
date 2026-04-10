@@ -21,12 +21,13 @@
                     <% } %>
             </div>
             <button type="button" onclick="document.getElementById('folderDialog').showModal()">Create Folder</button>
+            <%- include("partials/errors.ejs") %>
             <dialog id="folderDialog">
-                <h3>Create a new folder</h4>
+                <h3>Create a new folder</h3>
                 <form action="/createFolder" method="POST">
                     <label for="title">Folder name</label>
-                    <input type="text" name="title" id="title">
-                    <button type="submit" onclick="document.getElementById('folderDialog').close()">Create</button>
+                    <input type="text" name="title" id="title" required="true">
+                    <button type="submit">Create</button>
                     <button type="button" onclick="document.getElementById('folderDialog').close()">Close</button>
                 </form>
             </dialog>
