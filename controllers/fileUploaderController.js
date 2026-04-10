@@ -13,7 +13,8 @@ function asyncHandler(fn) {
 async function homeGet(req, res) {
     res.render("index", {
       user: req.user,
-      folders: req.folders
+      folders: req.folders,
+      showForm: "none"
     });
 }
 
@@ -60,7 +61,8 @@ const newFolderPost = [
       return res.status(400).render("index", {
         user: req.user,
         folders: req.folders,
-        errors: errors.array()
+        errors: errors.array(),
+        showForm: "inline-block"
       })
     }
 
