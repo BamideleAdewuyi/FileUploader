@@ -11,9 +11,14 @@ function asyncHandler(fn) {
 }
 
 async function homeGet(req, res) {
+  let folders;
+  if (req.user) {
+    const userId = req.user.id;
+    folders = await db.findAllUserFolders({ userId })
+  }
     res.render("index", {
       user: req.user,
-      folders: req.folders,
+      folders: folders,
       showForm: "none"
     });
 }
@@ -57,17 +62,18 @@ const newFolderPost = [
   validateFolder,
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
+    const userId = req.user.id;
     if (!errors.isEmpty()) {
+      folders = await db.findAllUserFolders({ userId })
       return res.status(400).render("index", {
         user: req.user,
-        folders: req.folders,
+        folders: folders,
         errors: errors.array(),
         showForm: "inline-block"
       })
     }
 
     const { title } = matchedData(req);
-    const userId = req.user.id;
     await db.createNewFolder({ userId, title });
     res.redirect("/");
   })
