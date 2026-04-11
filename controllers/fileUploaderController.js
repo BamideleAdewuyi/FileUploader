@@ -44,6 +44,24 @@ function signUpGet(req, res) {
   res.render("signUp");
 }
 
+async function folderGet(req, res) {
+  if (!req.isAuthenticated()) {
+    res.render("unauthorised");
+    return;
+  }
+  const folderId = Number(req.params.folderId);
+  const userId = Number(req.user.id);
+  const folder = await db.findFolderById({ id: folderId });
+  if (userId != folder.authorId) {
+    res.render("unauthorised");
+    return;
+  }
+
+  res.render("folder", {
+    folder: folder
+  })
+}
+
 const newUserPost = [
   validateUser,
   asyncHandler(async (req, res) => {
@@ -89,6 +107,7 @@ module.exports = {
     signUpGet,
     logOutGet,
     unauthorisedGet,
+    folderGet,
     newUserPost,
     newFolderPost
 }
