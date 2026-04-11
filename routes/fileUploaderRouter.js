@@ -8,6 +8,7 @@ fileUploaderRouter.get("/", fileUploaderController.homeGet);
 fileUploaderRouter.get("/logIn", fileUploaderController.logInGet);
 fileUploaderRouter.get("/signUp", fileUploaderController.signUpGet);
 fileUploaderRouter.get("/logOut", fileUploaderController.logOutGet);
+fileUploaderRouter.get("/folder/:folderId", fileUploaderController.folderGet);
 
 // Post
 fileUploaderRouter.post("/signUp", fileUploaderController.newUserPost);
