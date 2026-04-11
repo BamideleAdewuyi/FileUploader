@@ -23,6 +23,10 @@ async function homeGet(req, res) {
     });
 }
 
+async function unauthorisedGet(req, res) {
+  res.render("unauthorised")
+}
+
 function logInGet(req, res) {
   res.render("logIn")
 }
@@ -84,6 +88,7 @@ module.exports = {
     logInGet,
     signUpGet,
     logOutGet,
+    unauthorisedGet,
     newUserPost,
     newFolderPost
 }
