@@ -14,7 +14,7 @@
                 <% if (folders) {%> 
                     <% for (const folder of folders) {%>
                         <ul>
-                            <li><a href="/folder/<%= user.id %>/<%= folder.id %>"><%= folder.title %></a></li>
+                            <li><a href="/folder/<%= folder.id %>"><%= folder.title %></a></li>
                         </ul>
                     <% } %>
                 <% } else {%>
