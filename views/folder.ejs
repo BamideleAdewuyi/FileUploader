@@ -7,6 +7,17 @@
 </head>
 <body>
     <h1><%= folder.title %></h1>
+    <div class="filesContainer">
+        <% if (folder.file) { %>
+            <ul>
+                <% for (const file of folder.file) { %>
+                    <li><a href=""><%= file.title %></a></li>
+                <% } %>
+            </ul>
+        <% } else { %> 
+            <h2>No files</h2>
+        <% } %>
+    </div>
     <a href="/">Back Home</a>
 </body>
 </html>
