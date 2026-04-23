@@ -3,7 +3,7 @@ const fileUploaderController = require("../controllers/fileUploaderController");
 const fileUploaderRouter = Router();
 const passport = require("../passport/passport").passport;
 const multer = require('multer');
-const upload = require('../validators/fileValidator');
+const upload = require('../multer/upload');
 
 // Get
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
