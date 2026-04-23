@@ -62,6 +62,13 @@ async function findAllFolderFiles({ folderId }) {
     return files;
 }
 
+async function fileExists({ fileName }) {
+    const file = await prisma.file.findUnique({
+        where: { title: fileName }
+    });
+    return file;
+}
+
 module.exports = {
     createNewUser,
     findUserByUsername,
@@ -70,5 +77,6 @@ module.exports = {
     findFolderByTitle,
     findFolderById,
     findAllUserFolders,
-    findAllFolderFiles
+    findAllFolderFiles,
+    fileExists
 }
