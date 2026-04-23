@@ -2,6 +2,8 @@ const { Router } = require("express");
 const fileUploaderController = require("../controllers/fileUploaderController");
 const fileUploaderRouter = Router();
 const passport = require("../passport/passport").passport;
+const multer = require('multer');
+const upload = require('../validators/fileValidator');
 
 // Get
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
@@ -20,5 +22,21 @@ fileUploaderRouter.post(
         failureRedirect: "/"
     })
 );
+
+fileUploaderRouter.post("/upload", upload.single("file"), (req, res) => {
+    if (!req.file) {
+        return res.status(400).json({ error: "No file uploaded" });
+    }
+    console.log(req.file);
+});
+
+fileUploaderRouter.use((error, req, res, next) => {
+    if (error instanceof multer.MulterError) {
+        if (error.code === 'LIMIT_FILE_SIZE') {
+            return res.status(400).json({ error: 'File is too large. Max size is 5MB' });
+        }
+    }
+    next(error);
+});
 
 module.exports = fileUploaderRouter;
