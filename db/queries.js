@@ -62,9 +62,9 @@ async function findAllFolderFiles({ folderId }) {
     return files;
 }
 
-async function fileExists({ fileName }) {
+async function fileExists({ title }) {
     const file = await prisma.file.findUnique({
-        where: { title: fileName }
+        where: { title: title }
     });
     return file;
 }
