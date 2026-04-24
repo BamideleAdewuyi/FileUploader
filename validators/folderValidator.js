@@ -9,8 +9,10 @@ const validateFolder = [
     body("title").trim()
         .matches(/^[^\\/:*?"<>|]+$/).withMessage(`Name ${nameErr}`)
         .isLength({ min: 1 }).withMessage(`Name ${lengthErr}`)
-        .custom(async value => {
-                    const folder = await db.findFolderByTitle({ title: value });
+        .custom(async (value, { req }) => {
+                    const folder = await db.folderExists({ 
+                        title: value,
+                        userId: req.user.id });
                     if (folder) {
                         throw new Error(nameInUseErr);
                     }
