@@ -21,7 +21,7 @@ async function createNewFolder({ userId, title }) {
 }
 
 async function findUserByUsername({ username }) {
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
         where: { username: username },
     });
     return user;
@@ -35,7 +35,7 @@ async function findUserById({ id }) {
 }
 
 async function findFolderByTitle({ title }) {
-    const folder = await prisma.folder.findUnique({
+    const folder = await prisma.folder.findFirst({
         where: { title: title }
     });
     return folder;
@@ -63,7 +63,7 @@ async function findAllFolderFiles({ folderId }) {
 }
 
 async function fileExists({ title }) {
-    const file = await prisma.file.findUnique({
+    const file = await prisma.file.findFirst({
         where: { title: title }
     });
     return file;
