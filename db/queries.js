@@ -62,10 +62,13 @@ async function findAllFolderFiles({ folderId }) {
     return files;
 }
 
-async function fileExists({ title }) {
+async function fileExists({ title, userId, folderId }) {
     const file = await prisma.file.findFirst({
-        where: { title: title }
-    });
+        where: { 
+            title: title,
+            authorId: userId,
+            folderId: folderId }
+        });
     return file;
 }
 
