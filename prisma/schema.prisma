@@ -32,7 +32,7 @@ model File {
   title         String
   filename      String
   uploaded      DateTime @default(now()) 
-  size          String
+  size          Int
   url           String
   author        User     @relation(fields: [authorId], references: [id], onDelete: Cascade) 
   authorId      Int
