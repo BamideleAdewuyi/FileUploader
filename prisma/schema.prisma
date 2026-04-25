@@ -30,7 +30,7 @@ model User {
 model File { 
   id            Int      @id @default(autoincrement()) 
   title         String
-  originalname  String
+  filename      String
   uploaded      DateTime @default(now()) 
   size          String
   url           String
