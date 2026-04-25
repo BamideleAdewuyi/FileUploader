@@ -20,6 +20,19 @@ async function createNewFolder({ userId, title }) {
     return folder;
 }
 
+async function createNewFile({ file, userId, folderId }) {
+    const newFile = await prisma.file.create({
+        data: {
+            title: file.originalname,
+            filename: file.filename,
+            size: file.size,
+            url: "URL",
+            authorId: userId,
+            folderId: folderId
+        }
+    })
+}
+
 async function findUserByUsername({ username }) {
     const user = await prisma.user.findFirst({
         where: { username: username },
@@ -97,6 +110,7 @@ module.exports = {
     findUserByUsername,
     findUserById,
     createNewFolder,
+    createNewFile,
     findFolderByTitle,
     findFolderById,
     findAllUserFolders,
