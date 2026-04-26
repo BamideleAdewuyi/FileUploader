@@ -125,7 +125,7 @@ const newFilePost = [
       const file = req.file;
       const userId = Number(req.user.id);
       await db.createNewFile({ file, userId, folderId });
-      res.redirect("/")
+      res.redirect(`folder/${folderId}`);
     })
 ]
 
