@@ -8,9 +8,10 @@
 <body>
     <h1><%= folder.title %></h1>
     <div class="filesContainer">
-        <% if (folder.file) { %>
+        <% if (files.length > 0) { %>
+            <h2>Files</h2>
             <ul>
-                <% for (const file of folder.file) { %>
+                <% for (const file of files) { %>
                     <li><a href=""><%= file.title %></a></li>
                 <% } %>
             </ul>
