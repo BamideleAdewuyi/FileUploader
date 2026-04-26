@@ -3,6 +3,9 @@ const { validationResult, matchedData } = require("express-validator");
 const validateUser = require("../validators/userValidator");
 const validateFolder = require("../validators/folderValidator");
 const bcrypt = require("bcryptjs");
+const fs = require("fs");
+const validateFile = require("../validators/fileValidator");
+const { folder } = require("../lib/prisma");
 
 function asyncHandler(fn) {
   return function (req, res, next) {
@@ -86,7 +89,7 @@ const newFolderPost = [
     const errors = validationResult(req);
     const userId = req.user.id;
     if (!errors.isEmpty()) {
-      folders = await db.findAllUserFolders({ userId })
+      folders = await db.findAllUserFolders({ userId });
       return res.status(400).render("index", {
         user: req.user,
         folders: folders,
@@ -101,6 +104,27 @@ const newFolderPost = [
   })
 ]
 
+
+const newFilePost = [
+    asyncHandler(async (req, res) => {
+      const errors = req.errors
+      const folderId = Number(req.body.folderId);
+      if (errors.length > 0) {
+        const path = `./uploads/${req.file.filename}`;
+        await fs.promises.unlink(path);
+        const folder = await db.findFolderById({ id: folderId });
+        return res.status(400).render("folder", {
+          folder: folder,
+          errors: errors
+        })
+      }
+      const file = req.file;
+      const userId = Number(req.user.id);
+      await db.createNewFile({ file, userId, folderId });
+      res.redirect("/")
+    })
+]
+
 module.exports = {
     homeGet,
     logInGet,
@@ -109,5 +133,6 @@ module.exports = {
     unauthorisedGet,
     folderGet,
     newUserPost,
-    newFolderPost
+    newFolderPost,
+    newFilePost
 }
