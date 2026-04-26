@@ -23,7 +23,7 @@
         <%- include("partials/fileErrors.ejs") %>
         <form class="fileForm" action="/upload" method="post" enctype="multipart/form-data">
             <label for="file">File</label>
-            <input type="file" name="file" id="file">
+            <input type="file" name="file" id="file" required>
             <input type="hidden" name="folderId" id="folderId" value="<%= folder.id %>">
             <button type="submit">Upload File</button>
         </form>
