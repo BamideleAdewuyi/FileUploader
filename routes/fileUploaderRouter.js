@@ -4,6 +4,7 @@ const fileUploaderRouter = Router();
 const passport = require("../passport/passport").passport;
 const multer = require('multer');
 const upload = require('../multer/upload');
+const validateFile = require("../validators/fileValidator");
 
 // Get
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
@@ -23,12 +24,7 @@ fileUploaderRouter.post(
     })
 );
 
-fileUploaderRouter.post("/upload", upload.single("file"), (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ error: "No file uploaded" });
-    }
-    console.log(req.file);
-});
+fileUploaderRouter.post("/upload", upload.single("file"), validateFile, fileUploaderController.newFilePost);
 
 fileUploaderRouter.use((error, req, res, next) => {
     if (error instanceof multer.MulterError) {
