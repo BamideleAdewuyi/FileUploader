@@ -55,13 +55,15 @@ async function folderGet(req, res) {
   const folderId = Number(req.params.folderId);
   const userId = Number(req.user.id);
   const folder = await db.findFolderById({ id: folderId });
+  const files = await db.findAllFolderFiles({ folderId: folderId });
   if (userId != folder.authorId) {
     res.render("unauthorised");
     return;
   }
 
   res.render("folder", {
-    folder: folder
+    folder: folder,
+    files: files
   })
 }
 
@@ -113,9 +115,11 @@ const newFilePost = [
         const path = `./uploads/${req.file.filename}`;
         await fs.promises.unlink(path);
         const folder = await db.findFolderById({ id: folderId });
+        const files = await db.findAllFolderFiles({ folderId: folderId });
         return res.status(400).render("folder", {
           folder: folder,
-          errors: errors
+          errors: errors,
+          files: files
         })
       }
       const file = req.file;
