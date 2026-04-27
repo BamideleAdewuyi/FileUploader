@@ -85,6 +85,15 @@ async function fileExists({ title, userId, folderId }) {
     return file;
 }
 
+async function findFileById({ id }) {
+    const file = await prisma.file.findUnique({
+        where: {
+            id: id
+        }
+    })
+    return file;
+}
+
 async function folderExists({ userId, title }) {
     const folder = await prisma.folder.findFirst({
         where: { 
@@ -116,6 +125,7 @@ module.exports = {
     findAllUserFolders,
     findAllFolderFiles,
     fileExists,
+    findFileById,
     folderExists,
     folderBelongsToUser
 }
