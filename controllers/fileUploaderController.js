@@ -67,6 +67,25 @@ async function folderGet(req, res) {
   })
 }
 
+async function fileGet(req, res) {
+  if (!req.isAuthenticated()) {
+    res.render("unauthorised");
+    return;
+  }
+
+  const fileId = Number(req.params.fileId);
+  const userId = Number(req.user.id);
+  const file = await db.findFileById({ id: fileId });
+  if (userId != file.authorId) {
+    res.render("unauthorised");
+    return
+  }
+
+  res.render("file", {
+    file: file
+  })
+}
+
 const newUserPost = [
   validateUser,
   asyncHandler(async (req, res) => {
@@ -136,6 +155,7 @@ module.exports = {
     logOutGet,
     unauthorisedGet,
     folderGet,
+    fileGet,
     newUserPost,
     newFolderPost,
     newFilePost
