@@ -148,6 +148,10 @@ const newFilePost = [
     })
 ]
 
+const renameFolderPost = [
+
+]
+
 module.exports = {
     homeGet,
     logInGet,
@@ -158,5 +162,6 @@ module.exports = {
     fileGet,
     newUserPost,
     newFolderPost,
-    newFilePost
+    newFilePost,
+    renameFolderPost
 }
