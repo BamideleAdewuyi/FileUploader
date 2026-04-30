@@ -7,7 +7,17 @@
 </head>
 <body>
     <h1><%= folder.title %></h1>
-    <button type="button">Rename</button>
+    <button type="button" onclick="document.getElementById('renameFolderDialog').showModal()">Rename</button>
+    <div class="renameFolderDiv">
+        <dialog id="renameFolderDialog">
+            <form action="">
+                <label for="title"></label>
+                <input type="text" id="title" name="title" value="<%= folder.title %>">
+                <button type="submit">Rename</button>
+                <button type="button" onclick="document.getElementById('renameFolderDialog').close()">Cancel</button>
+            </form>
+        </dialog>
+    </div>
     <div class="filesContainer">
         <% if (files.length > 0) { %>
             <h2>Files</h2>
