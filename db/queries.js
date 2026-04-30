@@ -114,6 +114,13 @@ async function folderBelongsToUser({ userId, folderId }) {
     return folder;
 }
 
+async function renameFolder({ folderId, newName }) {
+    const renamedFolder = await prisma.folder.update({
+        where: { id: folderId },
+        data: { title: newName }
+    });
+}
+
 module.exports = {
     createNewUser,
     findUserByUsername,
@@ -127,5 +134,6 @@ module.exports = {
     fileExists,
     findFileById,
     folderExists,
-    folderBelongsToUser
+    folderBelongsToUser,
+    renameFolder
 }
