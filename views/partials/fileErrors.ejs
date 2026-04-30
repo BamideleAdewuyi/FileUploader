@@ -1,6 +1,6 @@
-<% if (locals.errors) {%>
+<% if (locals.fileErrors) {%>
   <ul>
-    <% for (const error of errors) { %>
+    <% for (const error of fileErrors) { %>
       <li><%= error %></li>
     <% }; %>
   </ul>
