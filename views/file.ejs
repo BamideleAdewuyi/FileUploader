@@ -8,7 +8,17 @@
 <body>
     <a href="/folder/<%= file.folderId %>">Back to folder</a>
     <h1><%= file.title %></h1>
-    <button type="button">Rename</button>
+    <button type="button" onclick="document.getElementById('renameFileDialog').showModal()">Rename</button>
+    <div class="renameFileDive">
+        <dialog id="renameFileDialog">
+            <form action="/folder/:folderId/:fileId" method="POST">
+                <label for="title"></label>
+                <input type="text" id="title" name="title" value="<%= file.title %>">
+                <button type="submit">Rename</button>
+                <button type="button" onclick="document.getElementById('renameFileDialog').close()">Cancel</button>
+            </form>
+        </dialog>
+    </div>
     <div class="fileContainer">
         <ul>
             <li>Size: <%= file.size %></li>
