@@ -149,7 +149,33 @@ const newFilePost = [
 ]
 
 const renameFolderPost = [
-
+    validateFolder,
+    asyncHandler(async (req, res) => {
+      if (!req.isAuthenticated()) {
+        res.render("unauthorised");
+        return;
+      }
+      const folderId = Number(req.params.folderId);
+      const userId = Number(req.user.id);
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const folder = await db.findFolderById({ id: folderId });
+        const files = await db.findAllFolderFiles({ folderId: folderId });
+        res.render("folder", {
+            folder: folder,
+            files: files,
+            errors: errors.array()
+        })
+      }
+      const { title } = matchedData(req);
+      await db.renameFolder({ folderId: folderId, title: title });
+      const folder = await db.findFolderById({ id: folderId } );
+      const files = await db.findAllFolderFiles({ folderId: folderId });
+      res.render("folder", {
+        folder: folder,
+        files: files
+      })
+    })
 ]
 
 module.exports = {
@@ -163,5 +189,5 @@ module.exports = {
     newUserPost,
     newFolderPost,
     newFilePost,
-    renameFolderPost
+    renameFolderPost,
 }
