@@ -121,6 +121,13 @@ async function renameFolder({ folderId, title }) {
     });
 }
 
+async function renameFile({ fileId, title }) {
+    const renamedFile = await prisma.file.update({
+        where: { id: fileId },
+        data: { title: title }
+    });
+}
+
 module.exports = {
     createNewUser,
     findUserByUsername,
@@ -135,5 +142,6 @@ module.exports = {
     findFileById,
     folderExists,
     folderBelongsToUser,
-    renameFolder
+    renameFolder,
+    renameFile
 }
