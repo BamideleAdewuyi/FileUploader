@@ -10,7 +10,7 @@
     <button type="button" onclick="document.getElementById('renameFolderDialog').showModal()">Rename</button>
     <div class="renameFolderDiv">
         <dialog id="renameFolderDialog">
-            <form action="">
+            <form action="/folder/<%= folder.id %>/rename" method="POST">
                 <label for="title"></label>
                 <input type="text" id="title" name="title" value="<%= folder.title %>">
                 <button type="submit">Rename</button>
