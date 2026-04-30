@@ -17,6 +17,7 @@ fileUploaderRouter.get("/folder/:folderId/:fileId", fileUploaderController.fileG
 // Post
 fileUploaderRouter.post("/signUp", fileUploaderController.newUserPost);
 fileUploaderRouter.post("/createFolder", fileUploaderController.newFolderPost);
+fileUploaderRouter.post("/folder/:folderId/rename", fileUploaderController.renameFolderPost);
 fileUploaderRouter.post(
     "/logIn",
     passport.authenticate("user-local", {
