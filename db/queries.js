@@ -114,10 +114,10 @@ async function folderBelongsToUser({ userId, folderId }) {
     return folder;
 }
 
-async function renameFolder({ folderId, newName }) {
+async function renameFolder({ folderId, title }) {
     const renamedFolder = await prisma.folder.update({
         where: { id: folderId },
-        data: { title: newName }
+        data: { title: title }
     });
 }
 
