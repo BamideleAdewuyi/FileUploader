@@ -137,7 +137,7 @@ const newFilePost = [
         const files = await db.findAllFolderFiles({ folderId: folderId });
         return res.status(400).render("folder", {
           folder: folder,
-          errors: errors,
+          fileErrors: errors,
           files: files
         })
       }
@@ -161,7 +161,7 @@ const renameFolderPost = [
       if (!errors.isEmpty()) {
         const folder = await db.findFolderById({ id: folderId });
         const files = await db.findAllFolderFiles({ folderId: folderId });
-        res.render("folder", {
+        return res.status(400).render("folder", {
             folder: folder,
             files: files,
             errors: errors.array()
