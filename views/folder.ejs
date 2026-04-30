@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1><%= folder.title %></h1>
+    <%- include("partials/errors.ejs") %>
     <button type="button" onclick="document.getElementById('renameFolderDialog').showModal()">Rename</button>
     <div class="renameFolderDiv">
         <dialog id="renameFolderDialog">
