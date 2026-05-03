@@ -13,7 +13,7 @@ const validateRename = [
                     const file = await db.fileExists({ 
                         title: value,
                         userId: Number(req.user.id),
-                        folderId: Number(req.file.folderId)
+                        folderId: Number(req.params.folderId)
                     });
                     if (file) {
                         throw new Error(nameInUseErr);
