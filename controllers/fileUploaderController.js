@@ -216,9 +216,11 @@ async function deleteFilePost(req, res) {
   }
 
   const file = await db.findFileById({ id: fileId });
+  const path = `./uploads/${file.filename}`;
   const folderId = Number(file.folderId);
   const folder = await db.findFolderById({ id: folderId })
   await db.deleteFile({ fileId: fileId });
+  await fs.promises.unlink(path);
   const files = await db.findAllFolderFiles({ folderId: folderId });
   res.redirect(`/folder/${folderId}`);
 }
