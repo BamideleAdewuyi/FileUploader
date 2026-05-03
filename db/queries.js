@@ -114,6 +114,16 @@ async function folderBelongsToUser({ userId, folderId }) {
     return folder;
 }
 
+async function fileBelongsToUser({ userId, fileId }) {
+    const file = await prisma.file.findFirst({
+        where: {
+            id: fileId,
+            authorId: userId
+        }
+    });
+    return file;
+}
+
 async function renameFolder({ folderId, title }) {
     const renamedFolder = await prisma.folder.update({
         where: { id: folderId },
@@ -133,7 +143,7 @@ async function deleteFile({ fileId }) {
         where: {
             id: fileId
         }
-    })
+    });
 }
 
 module.exports = {
@@ -150,6 +160,7 @@ module.exports = {
     findFileById,
     folderExists,
     folderBelongsToUser,
+    fileBelongsToUser,
     renameFolder,
     renameFile,
     deleteFile
