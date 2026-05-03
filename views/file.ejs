@@ -10,6 +10,7 @@
     <h1><%= file.title %></h1>
     <%- include("partials/errors.ejs") %>
     <button type="button" onclick="document.getElementById('renameFileDialog').showModal()">Rename</button>
+    <button type="button">Delete</button>
     <div class="renameFileDive">
         <dialog id="renameFileDialog">
             <form action="/folder/<%= file.folderId %>/<%= file.id %>/rename" method="POST">
