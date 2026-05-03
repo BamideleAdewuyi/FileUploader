@@ -128,6 +128,14 @@ async function renameFile({ fileId, title }) {
     });
 }
 
+async function deleteFile({ fileId }) {
+    const deletedFile = await prisma.file.delete({
+        where: {
+            id: fileId
+        }
+    })
+}
+
 module.exports = {
     createNewUser,
     findUserByUsername,
@@ -143,5 +151,6 @@ module.exports = {
     folderExists,
     folderBelongsToUser,
     renameFolder,
-    renameFile
+    renameFile,
+    deleteFile
 }
