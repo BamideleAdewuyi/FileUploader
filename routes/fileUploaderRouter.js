@@ -27,6 +27,7 @@ fileUploaderRouter.post(
 );
 
 fileUploaderRouter.post("/upload", upload.single("file"), validateFile, fileUploaderController.newFilePost);
+fileUploaderRouter.post("/folder/:folderId/:fileId/rename", fileUploaderController.renameFilePost);
 
 fileUploaderRouter.use((error, req, res, next) => {
     if (error instanceof multer.MulterError) {
