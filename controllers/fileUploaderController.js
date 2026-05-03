@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const fs = require("fs");
 const validateFile = require("../validators/fileValidator");
 const { folder } = require("../lib/prisma");
+const validateRename = require("../validators/renameFileValidator");
 
 function asyncHandler(fn) {
   return function (req, res, next) {
@@ -178,6 +179,32 @@ const renameFolderPost = [
     })
 ]
 
+const renameFilePost = [
+  validateRename,
+  asyncHandler(async (req, res) => {
+    const errors = validationResult(req);
+    if (!req.isAuthenticated) {
+      res.render("unauthorised");
+      return
+    }
+    if (!errors.isEmpty()) {
+      const file = await db.findFileById({ id: Number(req.params.fileId) });
+      return res.status(400).render("file", {
+        file: file,
+        errors: errors.array()
+      })
+    }
+
+    const { title } = matchedData(req);
+    const fileId = Number(req.params.fileId);
+    await db.renameFile({ fileId: fileId, title: title });
+    const file = await db.findFileById({ id: fileId })
+    res.render("file", {
+      file: file
+    })
+  })
+]
+
 module.exports = {
     homeGet,
     logInGet,
@@ -190,4 +217,5 @@ module.exports = {
     newFolderPost,
     newFilePost,
     renameFolderPost,
+    renameFilePost,
 }
