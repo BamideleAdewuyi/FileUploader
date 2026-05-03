@@ -8,10 +8,11 @@
 <body>
     <a href="/folder/<%= file.folderId %>">Back to folder</a>
     <h1><%= file.title %></h1>
+    <%- include("partials/errors.ejs") %>
     <button type="button" onclick="document.getElementById('renameFileDialog').showModal()">Rename</button>
     <div class="renameFileDive">
         <dialog id="renameFileDialog">
-            <form action="/folder/:folderId/:fileId/rename" method="POST">
+            <form action="/folder/<%= file.folderId %>/<%= file.id %>/rename" method="POST">
                 <label for="title"></label>
                 <input type="text" id="title" name="title" value="<%= file.title %>">
                 <button type="submit">Rename</button>
