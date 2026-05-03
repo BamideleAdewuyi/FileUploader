@@ -238,4 +238,5 @@ module.exports = {
     newFilePost,
     renameFolderPost,
     renameFilePost,
+    deleteFilePost,
 }
