@@ -16,6 +16,7 @@ fileUploaderRouter.get("/folder/:folderId/:fileId", fileUploaderController.fileG
 
 // Post
 fileUploaderRouter.post("/delete/file/:fileId", fileUploaderController.deleteFilePost);
+fileUploaderRouter.post("/delete/folder/:folderId", fileUploaderController.deleteFolderPost);
 fileUploaderRouter.post("/signUp", fileUploaderController.newUserPost);
 fileUploaderRouter.post("/createFolder", fileUploaderController.newFolderPost);
 fileUploaderRouter.post("/folder/:folderId/rename", fileUploaderController.renameFolderPost);
