@@ -9,7 +9,7 @@
     <h1><%= folder.title %></h1>
     <%- include("partials/errors.ejs") %>
     <button type="button" onclick="document.getElementById('renameFolderDialog').showModal()">Rename</button>
-    <button type="button" onclick="">Delete</button>
+    <button type="button" onclick="document.getElementById('deleteFolderDialog').showModal()">Delete</button>
     <div class="renameFolderDiv">
         <dialog id="renameFolderDialog">
             <form action="/folder/<%= folder.id %>/rename" method="POST">
@@ -17,6 +17,16 @@
                 <input type="text" id="title" name="title" value="<%= folder.title %>">
                 <button type="submit">Rename</button>
                 <button type="button" onclick="document.getElementById('renameFolderDialog').close()">Cancel</button>
+            </form>
+        </dialog>
+    </div>
+    <div class="deleteFolderDiv">
+        <dialog id="deleteFolderDialog">
+            <form action="/delete/folder/<%= folder.id %>" method="POST">
+                <h2>Are you sure you want to delete?</h2>
+                <p>All files will be deleted</p>
+                <button type="submit">Delete</button>
+                <button type="button" onclick="document.getElementById('deleteFolderDialog').close()">Cancel</button>
             </form>
         </dialog>
     </div>
