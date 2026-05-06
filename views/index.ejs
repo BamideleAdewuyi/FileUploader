@@ -11,14 +11,14 @@
         <% if (user) {%>
             <h2>Welcome back <%= user.username %></h2>
             <div class="folders">
-                <% if (folders) {%> 
+                <% if (folders.length > 0) {%> 
                     <% for (const folder of folders) {%>
                         <ul>
                             <li><a href="/folder/<%= folder.id %>"><%= folder.title %></a></li>
                         </ul>
                     <% } %>
                 <% } else {%>
-                    <h3>No folders</h3>
+                    <h3>Create a folder to upload files</h3>
                     <% } %>
             </div>
             <button type="button" onclick="document.getElementById('folderFormContainer').style.display='inline-block'">Create Folder</button>
