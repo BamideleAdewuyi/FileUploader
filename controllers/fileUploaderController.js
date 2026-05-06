@@ -207,7 +207,7 @@ const renameFilePost = [
 
 async function deleteFilePost(req, res) {
   const userId = Number(req.user.id);
-  const fileId = Number(req.params.fileId)
+  const fileId = Number(req.params.fileId);
   const fileOwned = await db.fileBelongsToUser({ userId: userId, fileId: fileId });
 
   if (!req.isAuthenticated || !fileOwned) {
@@ -225,6 +225,26 @@ async function deleteFilePost(req, res) {
   res.redirect(`/folder/${folderId}`);
 }
 
+async function deleteFolderPost(req, res) {
+  const userId = Number(req.user.id);
+  const folderId = Number(req.params.folderId);
+  const folderOwned = await db.folderBelongsToUser({ userId: userId, folderId: folderId});
+
+  if (!req.isAuthenticated || !folderOwned) {
+    res.render("unauthorised");
+    return
+  }
+
+  const files = await db.findAllFolderFiles({ folderId: folderId });
+  for (const file of files) {
+    const path = `./uploads/${file.filename}`;
+    await fs.promises.unlink(path);
+  }
+
+  await db.deleteFolder({ folderId: folderId });
+  res.redirect("/");
+}
+
 module.exports = {
     homeGet,
     logInGet,
@@ -239,4 +259,5 @@ module.exports = {
     renameFolderPost,
     renameFilePost,
     deleteFilePost,
+    deleteFolderPost,
 }
