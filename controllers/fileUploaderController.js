@@ -101,7 +101,7 @@ async function fileDownloadGet(req, res) {
   const path = `./uploads/${file.filename}`;
   res.download(path, file.title, (err) => {
     if (err) {
-      res.status(500).send('Error downloading');
+      res.status(500).render("downloadError");
     }
   });
 }
