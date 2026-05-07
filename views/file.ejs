@@ -35,7 +35,9 @@
             <li>Size: <%= file.size %></li>
             <li>Uploaded: <%=file.uploaded %></li>
         </ul>
-        <button type="button">Download</button>
+        <form action="/file/download/<%= file.id %>" method="GET">
+            <button type="submit">Download</button>
+        </form>
     </div>
 </body>
 </html>
