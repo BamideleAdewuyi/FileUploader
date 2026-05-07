@@ -87,6 +87,25 @@ async function fileGet(req, res) {
   })
 }
 
+async function fileDownloadGet(req, res) {
+  const userId = Number(req.user.id);
+  const fileId = Number(req.params.fileId);
+  const fileOwned = await db.fileBelongsToUser({ userId: userId, fileId: fileId });
+
+  if (!req.isAuthenticated || !fileOwned) {
+    res.render("unauthorised");
+    return
+  }
+
+  const file = await db.findFileById({ id: fileId });
+  const path = `./uploads/${file.filename}`;
+  res.download(path, file.title, (err) => {
+    if (err) {
+      res.status(500).send('Error downloading');
+    }
+  });
+}
+
 const newUserPost = [
   validateUser,
   asyncHandler(async (req, res) => {
@@ -253,6 +272,7 @@ module.exports = {
     unauthorisedGet,
     folderGet,
     fileGet,
+    fileDownloadGet,
     newUserPost,
     newFolderPost,
     newFilePost,
