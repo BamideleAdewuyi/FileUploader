@@ -7,6 +7,7 @@ const fs = require("fs");
 const validateFile = require("../validators/fileValidator");
 const { folder } = require("../lib/prisma");
 const validateRename = require("../validators/renameFileValidator");
+const cloudinary = require("../cloudinary/cloudinary");
 
 function asyncHandler(fn) {
   return function (req, res, next) {
