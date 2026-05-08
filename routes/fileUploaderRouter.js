@@ -5,6 +5,13 @@ const passport = require("../passport/passport").passport;
 const multer = require('multer');
 const upload = require('../multer/upload');
 const validateFile = require("../validators/fileValidator");
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+    cloud_name: "dsmvxeqy9",
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Get
 fileUploaderRouter.get("/", fileUploaderController.homeGet);
