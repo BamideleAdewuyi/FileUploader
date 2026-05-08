@@ -20,13 +20,13 @@ async function createNewFolder({ userId, title }) {
     return folder;
 }
 
-async function createNewFile({ file, userId, folderId }) {
+async function createNewFile({ file, userId, folderId, url }) {
     const newFile = await prisma.file.create({
         data: {
             title: file.originalname,
             filename: file.filename,
             size: file.size,
-            url: "URL",
+            url: url,
             authorId: userId,
             folderId: folderId
         }
