@@ -8,6 +8,7 @@ const session = require("express-session");
 const secret = process.env.SECRET;
 const prisma = require("./lib/prisma.js")
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
+const cloudinary = require("./cloudinary/cloudinary");
 
 app.use(
     session({
