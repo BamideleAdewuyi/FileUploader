@@ -34,7 +34,6 @@ model File {
   uploaded      DateTime @default(now()) 
   size          Int
   url           String
-  cloudinaryUrl String
   author        User     @relation(fields: [authorId], references: [id], onDelete: Cascade) 
   authorId      Int
   folder        Folder   @relation(fields: [folderId], references: [id], onDelete: Cascade)
