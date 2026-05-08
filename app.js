@@ -8,13 +8,6 @@ const session = require("express-session");
 const secret = process.env.SECRET;
 const prisma = require("./lib/prisma.js")
 const { PrismaSessionStore } = require('@quixo3/prisma-session-store');
-const cloudinary = require("cloudinary").v2;
-
-cloudinary.config({
-    cloud_name: "dsmvxeqy9",
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 app.use(
     session({
