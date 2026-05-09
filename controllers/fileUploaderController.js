@@ -168,7 +168,7 @@ const newFilePost = [
       try {
         const result = await cloudinary.uploader.upload(req.file.path, {
           resource_type: "raw",
-          public_id: req.file.originalname
+          public_id: folderId + req.file.originalname
         });
 
         await db.createNewFile({ file: file, userId: userId, folderId: folderId, url: result.secure_url })
