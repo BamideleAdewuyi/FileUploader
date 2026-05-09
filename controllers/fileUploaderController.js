@@ -162,10 +162,21 @@ const newFilePost = [
           files: files
         })
       }
+
       const file = req.file;
       const userId = Number(req.user.id);
-      await db.createNewFile({ file, userId, folderId });
-      res.redirect(`folder/${folderId}`);
+      try {
+        const result = await cloudinary.uploader.upload(req.file.path, {
+          resource_type: "raw",
+          public_id: req.file.originalname
+        });
+
+        await db.createNewFile({ file: file, userId: userId, folderId: folderId, url: result.secure_url })
+        res.redirect(`folder/${folderId}`);
+      } catch (uploadError) {
+        console.error(uploadError);
+        res.status(500).send("Upload failed");
+      }      
     })
 ]
 
