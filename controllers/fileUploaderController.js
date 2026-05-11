@@ -166,12 +166,13 @@ const newFilePost = [
       const file = req.file;
       const userId = Number(req.user.id);
       try {
+        const publicId = folderId + req.file.originalname;
         const result = await cloudinary.uploader.upload(req.file.path, {
           resource_type: "raw",
-          public_id: folderId + req.file.originalname
+          public_id: publicId
         });
 
-        await db.createNewFile({ file: file, userId: userId, folderId: folderId, url: result.secure_url })
+        await db.createNewFile({ file: file, userId: userId, folderId: folderId, url: result.secure_url, publicId: publicId })
         res.redirect(`folder/${folderId}`);
       } catch (uploadError) {
         console.error(uploadError);
