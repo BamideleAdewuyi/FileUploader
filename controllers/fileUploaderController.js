@@ -8,6 +8,7 @@ const validateFile = require("../validators/fileValidator");
 const { folder } = require("../lib/prisma");
 const validateRename = require("../validators/renameFileValidator");
 const cloudinary = require("../cloudinary/cloudinary");
+const https = require("https");
 
 function asyncHandler(fn) {
   return function (req, res, next) {
@@ -104,6 +105,28 @@ async function fileDownloadGet(req, res) {
     if (err) {
       res.status(500).render("downloadError");
     }
+  });
+}
+
+async function cloudinaryFileDownloadGet(req, res) {
+  const userId = Number(req.user.id);
+  const fileId = Number(req.params.fileId);
+  const fileOwned = await db.fileBelongsToUser({ userId: userId, fileId: fileId });
+
+  if (!req.isAuthenticated || !fileOwned) {
+    res.render("unauthorised");
+    return
+  }
+
+  const file = await db.findFileById({ id: fileId });
+  const url = file.url;
+  const fileName = file.title;
+  res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+  
+  https.get(url, (cloudinaryRes) => {
+    cloudinaryRes.pipe(res);
+  }).on('error', (err) => {
+    res.status(500).send('Download failed');
   });
 }
 
@@ -293,4 +316,5 @@ module.exports = {
     renameFilePost,
     deleteFilePost,
     deleteFolderPost,
+    cloudinaryFileDownloadGet
 }
