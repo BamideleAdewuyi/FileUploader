@@ -32,6 +32,7 @@ async function createNewFile({ file, userId, folderId, url, publicId }) {
             folderId: folderId
         }
     })
+    return newFile;
 }
 
 async function findUserByUsername({ username }) {
