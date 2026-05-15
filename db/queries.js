@@ -133,10 +133,13 @@ async function renameFolder({ folderId, title }) {
     });
 }
 
-async function renameFile({ fileId, title }) {
+async function renameFile({ fileId, title, publicId }) {
     const renamedFile = await prisma.file.update({
         where: { id: fileId },
-        data: { title: title }
+        data: { 
+            title: title,
+            publicId: publicId
+        }
     });
 }
 
