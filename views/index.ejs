@@ -8,39 +8,39 @@
 </head>
 <body>
     <div class="homePageContainer">
-        <h1>Welcome to Drive</h1>
         <% if (user) {%>
             <div class="userDiv">
-                <h2>Welcome back <%= user.username %></h2>
+                <h1>Welcome back, <%= user.username %></h1>
                 <div class="folders">
                     <% if (folders.length > 0) {%> 
                         <% for (const folder of folders) {%>
                             <ul>
                                 <li><a href="/folder/<%= folder.id %>"><%= folder.title %></a></li>
                             </ul>
-                        <% } %>
-                    <% } else {%>
-                        <h3>Create a folder to upload files</h3>
-                        <% } %>
-                </div>
-                <button type="button" onclick="document.getElementById('folderFormContainer').style.display='inline-block'">Create Folder</button>
-                <div id="folderFormContainer" class="folderFormContainer" style="display:<%= showForm %>">
-                    <h3>Create a new folder</h3>
-                    <form class="folderForm" action="/createFolder" method="POST">
-                        <%- include("partials/errors.ejs") %>
-                        <label for="title">Folder name</label>
-                        <input type="text" name="title" id="title" required="true">
-                        <button type="submit">Create</button>
-                        <button type="button" onclick="document.getElementById('folderFormContainer').style.display='none'">Close</button>
-                    </form>
-                </div>
-            </div>
-            <a href="/logOut">Log Out</a>
-        <% } else { %>
-            <div class="signUpLogInContainer">
-                <a href="/signUp">Sign Up New User</a>
-                <a href="/logIn">Log In</a>
-            </div>
+                            <% } %>
+                            <% } else {%>
+                                <h3>Create a folder to upload files</h3>
+                                <% } %>
+                            </div>
+                            <button type="button" onclick="document.getElementById('folderFormContainer').style.display='inline-block'">Create Folder</button>
+                            <div id="folderFormContainer" class="folderFormContainer" style="display:<%= showForm %>">
+                                <h3>Create a new folder</h3>
+                                <form class="folderForm" action="/createFolder" method="POST">
+                                    <%- include("partials/errors.ejs") %>
+                                    <label for="title">Folder name</label>
+                                    <input type="text" name="title" id="title" required="true">
+                                    <button type="submit">Create</button>
+                                    <button type="button" onclick="document.getElementById('folderFormContainer').style.display='none'">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                        <a href="/logOut">Log Out</a>
+                        <% } else { %>
+                            <h1>Welcome to Drive</h1>
+                            <div class="signUpLogInContainer">
+                                <a href="/signUp">Sign Up New User</a>
+                                <a href="/logIn">Log In</a>
+                            </div>
         <% } %>
     </div>
 </body>
