@@ -12,6 +12,7 @@
             <div class="userDiv">
                 <h1>Welcome back, <%= user.username %></h1>
                 <div class="folders">
+                    <button type="button" onclick="document.getElementById('folderFormContainer').style.display='inline-block'">Create Folder</button>
                     <% if (folders.length > 0) {%> 
                         <% for (const folder of folders) {%>
                             <ul>
@@ -22,7 +23,6 @@
                                 <h3>Create a folder to upload files</h3>
                                 <% } %>
                             </div>
-                            <button type="button" onclick="document.getElementById('folderFormContainer').style.display='inline-block'">Create Folder</button>
                             <div id="folderFormContainer" class="folderFormContainer" style="display:<%= showForm %>">
                                 <h3>Create a new folder</h3>
                                 <form class="folderForm" action="/createFolder" method="POST">
