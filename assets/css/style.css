@@ -2,3 +2,8 @@
     background-color: beige;
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.homePageContainer {
+    display: flex;
+    flex-direction: column;
+}
