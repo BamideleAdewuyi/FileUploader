@@ -192,7 +192,7 @@ const newFilePost = [
         const publicId = folderId + req.file.originalname;
         const result = await cloudinary.uploader.upload(req.file.path, {
           resource_type: "raw",
-          public_id: publicId
+          public_id: publicId,
         });
 
         await db.createNewFile({ file: file, userId: userId, folderId: folderId, url: result.secure_url, publicId: publicId })
@@ -252,8 +252,12 @@ const renameFilePost = [
 
     const { title } = matchedData(req);
     const fileId = Number(req.params.fileId);
-    await db.renameFile({ fileId: fileId, title: title });
-    const file = await db.findFileById({ id: fileId })
+    const oldFile = await db.findFileById({ id: fileId });
+    const oldPublicId = oldFile.publicId;
+    const newPublicId = oldFile.folderId + title;
+    await db.renameFile({ fileId: fileId, title: title, publicId: newPublicId });
+    const file = await db.findFileById({ id: fileId });
+    await cloudinary.uploader.rename(oldPublicId, newPublicId, { resource_type: "raw" });
     res.render("file", {
       file: file
     })
@@ -273,9 +277,13 @@ async function deleteFilePost(req, res) {
   const file = await db.findFileById({ id: fileId });
   const path = `./uploads/${file.filename}`;
   const folderId = Number(file.folderId);
-  const folder = await db.findFolderById({ id: folderId })
+  const folder = await db.findFolderById({ id: folderId });
+  const publicId = file.publicId;
+
   await db.deleteFile({ fileId: fileId });
   await fs.promises.unlink(path);
+  await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
+
   const files = await db.findAllFolderFiles({ folderId: folderId });
   res.redirect(`/folder/${folderId}`);
 }
@@ -293,7 +301,9 @@ async function deleteFolderPost(req, res) {
   const files = await db.findAllFolderFiles({ folderId: folderId });
   for (const file of files) {
     const path = `./uploads/${file.filename}`;
+    const publicId = file.publicId;
     await fs.promises.unlink(path);
+    await cloudinary.uploader.destroy(publicId, { resource_type: "raw" });
   }
 
   await db.deleteFolder({ folderId: folderId });
