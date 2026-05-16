@@ -15,7 +15,7 @@
                     <% if (folders.length > 0) {%> 
                         <% for (const folder of folders) {%>
                             <ul>
-                                <li><a href="/folder/<%= folder.id %>"><%= folder.title %></a></li>
+                                <li class="folder"><a href="/folder/<%= folder.id %>"><%= folder.title %></a></li>
                             </ul>
                             <% } %>
                             <% } else {%>
