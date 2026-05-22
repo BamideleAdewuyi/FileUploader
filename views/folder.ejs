@@ -7,52 +7,54 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1><%= folder.title %></h1>
-    <%- include("partials/errors.ejs") %>
-    <button type="button" onclick="document.getElementById('renameFolderDialog').showModal()">Rename</button>
-    <button type="button" onclick="document.getElementById('deleteFolderDialog').showModal()">Delete</button>
-    <div class="renameFolderDiv">
-        <dialog id="renameFolderDialog">
-            <form action="/folder/<%= folder.id %>/rename" method="POST">
-                <label for="title"></label>
-                <input type="text" id="title" name="title" value="<%= folder.title %>">
-                <button type="submit">Rename</button>
-                <button type="button" onclick="document.getElementById('renameFolderDialog').close()">Cancel</button>
+    <div class="folderContainer">
+        <h1><%= folder.title %></h1>
+        <%- include("partials/errors.ejs") %>
+        <button type="button" onclick="document.getElementById('renameFolderDialog').showModal()">Rename</button>
+        <button type="button" onclick="document.getElementById('deleteFolderDialog').showModal()">Delete</button>
+        <div class="renameFolderDiv">
+            <dialog id="renameFolderDialog">
+                <form action="/folder/<%= folder.id %>/rename" method="POST">
+                    <label for="title"></label>
+                    <input type="text" id="title" name="title" value="<%= folder.title %>">
+                    <button type="submit">Rename</button>
+                    <button type="button" onclick="document.getElementById('renameFolderDialog').close()">Cancel</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="deleteFolderDiv">
+            <dialog id="deleteFolderDialog">
+                <form action="/delete/folder/<%= folder.id %>" method="POST">
+                    <h2>Are you sure you want to delete?</h2>
+                    <p>All files will be deleted</p>
+                    <button type="submit">Delete</button>
+                    <button type="button" onclick="document.getElementById('deleteFolderDialog').close()">Cancel</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="filesContainer">
+            <% if (files.length > 0) { %>
+                <h2>Files</h2>
+                <ul>
+                    <% for (const file of files) { %>
+                        <li><a href="/folder/<%= folder.id %>/<%= file.id %>"><%= file.title %></a></li>
+                    <% } %>
+                </ul>
+            <% } else { %> 
+                <h2>Empty</h2>
+            <% } %>
+        </div>
+        <div class="fileFormContainer">
+            <h3>Upload a File</h3>
+            <%- include("partials/fileErrors.ejs") %>
+            <form class="fileForm" action="/upload" method="post" enctype="multipart/form-data">
+                <label for="file">File</label>
+                <input type="file" name="file" id="file" required>
+                <input type="hidden" name="folderId" id="folderId" value="<%= folder.id %>">
+                <button type="submit">Upload File</button>
             </form>
-        </dialog>
+        </div>
+        <a href="/">Back Home</a>
     </div>
-    <div class="deleteFolderDiv">
-        <dialog id="deleteFolderDialog">
-            <form action="/delete/folder/<%= folder.id %>" method="POST">
-                <h2>Are you sure you want to delete?</h2>
-                <p>All files will be deleted</p>
-                <button type="submit">Delete</button>
-                <button type="button" onclick="document.getElementById('deleteFolderDialog').close()">Cancel</button>
-            </form>
-        </dialog>
-    </div>
-    <div class="filesContainer">
-        <% if (files.length > 0) { %>
-            <h2>Files</h2>
-            <ul>
-                <% for (const file of files) { %>
-                    <li><a href="/folder/<%= folder.id %>/<%= file.id %>"><%= file.title %></a></li>
-                <% } %>
-            </ul>
-        <% } else { %> 
-            <h2>Empty</h2>
-        <% } %>
-    </div>
-    <div class="fileFormContainer">
-        <h3>Upload a File</h3>
-        <%- include("partials/fileErrors.ejs") %>
-        <form class="fileForm" action="/upload" method="post" enctype="multipart/form-data">
-            <label for="file">File</label>
-            <input type="file" name="file" id="file" required>
-            <input type="hidden" name="folderId" id="folderId" value="<%= folder.id %>">
-            <button type="submit">Upload File</button>
-        </form>
-    </div>
-    <a href="/">Back Home</a>
 </body>
 </html>

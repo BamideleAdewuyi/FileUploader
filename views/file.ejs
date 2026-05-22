@@ -7,41 +7,43 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <a href="/folder/<%= file.folderId %>">Back to folder</a>
-    <h1><%= file.title %></h1>
-    <%- include("partials/errors.ejs") %>
-    <button type="button" onclick="document.getElementById('renameFileDialog').showModal()">Rename</button>
-    <button type="button" onclick="document.getElementById('deleteFileDialog').showModal()">Delete</button>
-    <div class="renameFileDive">
-        <dialog id="renameFileDialog">
-            <form action="/folder/<%= file.folderId %>/<%= file.id %>/rename" method="POST">
-                <label for="title"></label>
-                <input type="text" id="title" name="title" value="<%= file.title %>">
-                <button type="submit">Rename</button>
-                <button type="button" onclick="document.getElementById('renameFileDialog').close()">Cancel</button>
-            </form>
-        </dialog>
-    </div>
-    <div class="deleteFileDiv">
-        <dialog id="deleteFileDialog">
-            <form action="/delete/file/<%= file.id %>" method="POST">
-                <h2>Are you sure you want to delete?</h2>
-                <button type="submit">Delete</button>
-                <button type="button" onclick="document.getElementById('deleteFileDialog').close()">Cancel</button>
-            </form>
-        </dialog>
-    </div>
     <div class="fileContainer">
-        <ul>
-            <li>Size: <%= file.size %></li>
-            <li>Uploaded: <%=file.uploaded %></li>
-        </ul>
-        <form action="/file/download/<%= file.id %>" method="GET">
-            <button type="submit">Download</button>
-        </form>
-        <form action="/file/cloudinaryDownload/<%= file.id %>" method="GET">
-            <button type="submit">Cloudinary Download</button>
-        </form>
+        <a href="/folder/<%= file.folderId %>">Back to folder</a>
+        <h1><%= file.title %></h1>
+        <%- include("partials/errors.ejs") %>
+        <button type="button" onclick="document.getElementById('renameFileDialog').showModal()">Rename</button>
+        <button type="button" onclick="document.getElementById('deleteFileDialog').showModal()">Delete</button>
+        <div class="renameFileDive">
+            <dialog id="renameFileDialog">
+                <form action="/folder/<%= file.folderId %>/<%= file.id %>/rename" method="POST">
+                    <label for="title"></label>
+                    <input type="text" id="title" name="title" value="<%= file.title %>">
+                    <button type="submit">Rename</button>
+                    <button type="button" onclick="document.getElementById('renameFileDialog').close()">Cancel</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="deleteFileDiv">
+            <dialog id="deleteFileDialog">
+                <form action="/delete/file/<%= file.id %>" method="POST">
+                    <h2>Are you sure you want to delete?</h2>
+                    <button type="submit">Delete</button>
+                    <button type="button" onclick="document.getElementById('deleteFileDialog').close()">Cancel</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="fileDetailContainer">
+            <ul>
+                <li>Size: <%= file.size %></li>
+                <li>Uploaded: <%=file.uploaded %></li>
+            </ul>
+            <form action="/file/download/<%= file.id %>" method="GET">
+                <button type="submit">Download</button>
+            </form>
+            <form action="/file/cloudinaryDownload/<%= file.id %>" method="GET">
+                <button type="submit">Cloudinary Download</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
