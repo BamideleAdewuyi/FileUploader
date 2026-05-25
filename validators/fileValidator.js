@@ -7,10 +7,6 @@ const permissionsErr = "You are not authorised to add to this folder";
 
 const validateFile = [
     async (req, res, next) => {
-        if (req.file) {
-
-        }
-
         if (!req.errors) req.errors = [];
         const title = req.file.originalname.trim();
         if (title.length < 1) {
